@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,6 +34,15 @@ namespace Presentation
             {
                 MessageBox.Show("blablablaba");
             }
+        }
+
+        private static void SendInfoToLog(string message)
+        {
+            string logSource = "NumberCalculator";
+            string logType = "Application";
+            if (!EventLog.SourceExists(logType))
+                EventLog.CreateEventSource(logSource, logType);
+            EventLog.WriteEntry(logSource, message, EventLogEntryType.Information);
         }
     }
 }

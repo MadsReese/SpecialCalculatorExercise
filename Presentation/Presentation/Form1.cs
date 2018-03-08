@@ -39,7 +39,7 @@ namespace Presentation
         {
             string logSource = "NumberCalculator";
             string logType = "Application";
-            if (!EventLog.SourceExists(logType))
+            if (!EventLog.SourceExists(logSource))
                 EventLog.CreateEventSource(logSource, logType);
             EventLog.WriteEntry(logSource, message, EventLogEntryType.Information);
         }

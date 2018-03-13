@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyNetQ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -11,12 +12,48 @@ namespace DAL
     public class PI : Client
     {
 
-        public async Task<HttpResponseMessage> GetPIAsync()
+        //public Task<HttpResponseMessage> GetPIAsync(string value)
+        //{
+        //    client = new HttpClient();
+        //    HttpResponseMessage response = client.GetAsync(_url + "/pi/"+value).Result;
+        //    var content = response.Content.ReadAsAsync<>().Result;
+
+        //    return ;
+
+        //}
+
+        //public HttpResponseMessage GetPrime(string value)
+        //{
+        //    client = GetHttpClient();
+        //    HttpResponseMessage response = client.GetAsync(_url + "/prime/" + value).Result;
+        //    return response;
+        //}
+
+        public void SendToRabbit(string value)
         {
-            HttpClient client = GetHttpClient();
-            HttpResponseMessage response = await client.GetStringAsync("/pi/5").Result;
-            return response;
+
+            using (var bus = RabbitHutch.CreateBus("host=localhost"))
+            {
+                bus.Publish(new PImodel
+                {
+                    piValue = Convert.ToInt16(value)
+                });
+
+            }
+
         }
 
+        public void GetFromRabbit()
+        {
+            using (var bus = RabbitHutch.CreateBus("host=localhost"))
+            {
+                bus.Receive<PImodel>("CalculatedReplyQueue", HandleTextMessage x=> x.);
+            };
+        }
+
+        private void HandleTextMessage(PImodel obj)
+        {
+            Convert.ToInt16(obj.piValue).ToString();
+        }
     }
 }

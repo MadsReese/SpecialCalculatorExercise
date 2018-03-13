@@ -32,6 +32,7 @@
             this.radioButtonPi = new System.Windows.Forms.RadioButton();
             this.radioButtonPrime = new System.Windows.Forms.RadioButton();
             this.txtInput = new System.Windows.Forms.TextBox();
+            this.txtResult = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCalculate
@@ -74,15 +75,22 @@
             this.txtInput.Location = new System.Drawing.Point(6, 7);
             this.txtInput.Margin = new System.Windows.Forms.Padding(2);
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(217, 20);
+            this.txtInput.Size = new System.Drawing.Size(103, 20);
             this.txtInput.TabIndex = 3;
-            //this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
+            // 
+            // txtResult
+            // 
+            this.txtResult.Location = new System.Drawing.Point(124, 7);
+            this.txtResult.Name = "txtResult";
+            this.txtResult.Size = new System.Drawing.Size(168, 20);
+            this.txtResult.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 95);
+            this.Controls.Add(this.txtResult);
             this.Controls.Add(this.txtInput);
             this.Controls.Add(this.radioButtonPrime);
             this.Controls.Add(this.radioButtonPi);
@@ -101,5 +109,6 @@
         private System.Windows.Forms.RadioButton radioButtonPi;
         private System.Windows.Forms.RadioButton radioButtonPrime;
         private System.Windows.Forms.TextBox txtInput;
+        private System.Windows.Forms.TextBox txtResult;
     }
 }

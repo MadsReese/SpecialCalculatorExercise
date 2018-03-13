@@ -27,18 +27,22 @@ namespace Presentation
 
         private void Button1_ClickAsync(object sender, EventArgs e)
         {
-            var task = GetResponseAsync<MyObject>("my url");
-            var items = await task;
+            string value = txtInput.Text;
+            PI pi = new PI();
 
             if (radioButtonPi.Checked)
             {
-                PI pi = new PI();
-                pi.GetPI(6);
-                SendInfoToLog("Clicked Pi" + txtInput.ToString());
+                pi.SendToRabbit(value);
+                SendInfoToLog("Clicked Pi " + value);
+                txtResult.Text = $"PI {pi.GetFromRabbit()}";
+
             }
             else
             {
-                SendInfoToLog("Clicked Prime" + txtInput.ToString());
+                pi.SendToRabbit(value);
+                SendInfoToLog("Clicked Prime " + value);
+                txtResult.Text = $"Prime {pi.GetFromRabbit()}";
+
             }
         }
 
@@ -57,6 +61,7 @@ namespace Presentation
             myLog.Source = logSource;
             myLog.WriteEntry(message);
         }
+
 
     }
 }

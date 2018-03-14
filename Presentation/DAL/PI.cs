@@ -47,13 +47,16 @@ namespace DAL
         {
             using (var bus = RabbitHutch.CreateBus("host=localhost"))
             {
-                bus.Receive<PImodel>("CalculatedReplyQueue", HandleTextMessage x=> x.);
+                bus.Receive("CalculatedReplyQueue", (msg)=>
+                {
+
+                });
             };
         }
 
         private void HandleTextMessage(PImodel obj)
         {
-            Convert.ToInt16(obj.piValue).ToString();
+             Convert.ToInt16(obj.piValue).ToString();
         }
     }
 }

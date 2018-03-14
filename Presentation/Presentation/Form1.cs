@@ -25,6 +25,22 @@ namespace Presentation
             radioButtonPi.Checked = true;
         }
 
+        public void GetFromRabbit()
+        {
+            using (var bus = RabbitHutch.CreateBus("host=localhost"))
+            {
+                bus.Publish(new PImodel
+                {
+                    piValue = Convert.ToInt16(value)
+                });
+
+                bus.Receive("CalculatedReplyQueue", (msg) =>
+                {
+
+                });
+            };
+        }
+
         private void Button1_ClickAsync(object sender, EventArgs e)
         {
             string value = txtInput.Text;
